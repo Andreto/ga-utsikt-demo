@@ -63,23 +63,53 @@ body {
     display: block;
 }
 
-#calc-button {
+.demo-spinner {
     font-family: 'Consolas', Courier, monospace;
-    cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
     padding: 10px 14px;
     float: right;
     border: none;
-    border-bottom: 4px solid #3f6bc2;
-    background-color: #528BFF;
-    color: #fff;
-    border-radius: 6px;
-    transition: .2s;
-    margin-bottom: 6px;
+    display: inline;
 }
-#calc-button:hover {
-    background-color: #4777d6;
+.demo-chav {
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    transition: background-color .3s;
+    top: 4px;
+}
+.demo-chav:hover {
+    background-color: #EEF1F7;
+}
+#demo-svg-l {
+    position: absolute;
+    left: -2px;
+}
+#demo-svg-r {
+    position: absolute;
+    left: 2px;
+}
+#demo-name {
+    font-size: 8px;
+    background-color: #EEF1F7;
+    font-size: 1.2em;
+    padding: 6px;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    position: relative;
+}
+#demo-name:after {
+    content: "Visar utsikt från:";
+    font-weight: 300;
+    font-size: 12px;
+    position: absolute;
+    top: -16px;
+    left: 6px;
 }
 
 .control-input-small {
