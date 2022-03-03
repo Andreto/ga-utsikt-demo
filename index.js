@@ -51,8 +51,10 @@ var pl;
 calcDemos = [
     {'obj': cdNrk, 'name': 'Svältmon, Norrköping', 'lat': 58.654138, 'lon': 16.077654, 'vh': 2},
     {'obj': cdKeb, 'name': 'Kebnekaises nordtopp', 'lat': 67.903667, 'lon': 18.526145, 'vh': 2},
-    {'obj': cdAre, 'name': 'Härjångsfjällen, Åre', 'lat': 63.019267, 'lon': 12.590838, 'vh': 2},
+    {'obj': cdAre, 'name': 'Härjångsfjällen, Åre (U)', 'lat': 63.019267, 'lon': 12.590838, 'vh': 2},
+    {'obj': cdsAre, 'name': 'Härjångsfjällen, Åre', 'lat': 63.019267, 'lon': 12.590838, 'vh': 2},
     {'obj': cdJan, 'name': 'Långe Jan, Ölands södra uddde', 'lat': 56.196162, 'lon': 16.398396, 'vh': 39},
+    {'obj': cdsBrahe, 'name': 'Brahehus, Gränna', 'lat': 58.053093, 'lon': 14.504669, 'vh': 2}
 ]
 
 function setDemo() {
