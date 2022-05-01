@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utsiktsberäkning</title>
+    <!-- Leaflet Import -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!-- Css imports -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Proj4js Import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js" integrity="sha512-MMmVaQGDVI3Wouc5zT5G7k/snN9gPqquIhZsHgIIHVDlRgYTYGxrwu6w482iIhAq8n5R6+pcBgpGgxFFBz7rZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="page-fill">
+        <div class="center-wrapper">
+            <h1>Utsiktskartan</h1>
+            <h2>Jakten efter Sveriges bästa utsikter.</h2>
+            <div class="ext-link-cards">
+                <a href="http://utsiktskartan.eu-north-1.elasticbeanstalk.com/" class="link-card" id="card-utsiktskartan">
+                    <h3>Den interaktiva kartan</h3>
+                    <p>Beräkna utsikten från vilken punkt du vill i hela Sverige.</p>
+                </a>
+                <a href="./längsta" class="link-card h" id="card-langsta">
+                    <h3>Sveriges 1000 längsta</h3>
+                    <p>De 1000 längsta siktlinjerna från en punkt i sverige, färgkodade efter deras längd.</p>
+                </a>
+                <a href="./demo" class="link-card h">
+                    <h3>Förberäknade demos</h3>
+                    <p>Redan beräknade utsiktspunkter som visar upp programmets funktioner.</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>
