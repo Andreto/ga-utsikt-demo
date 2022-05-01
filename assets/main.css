@@ -4,7 +4,7 @@ body {
 }
 
 #map { 
-    height: 80vh; 
+    height: calc(100vh - 160px); 
     width: 100%;
     z-index: 1;
 }
@@ -19,7 +19,7 @@ body {
 .control-panel {
     max-width: 1000px;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 0px;
     padding: 20px;
 }
 .control-label {
@@ -233,10 +233,33 @@ input[type=range] {
     }
 }
 
+@media only screen and (max-width: 800px) {
+    .scale-indicator {
+        bottom: 24px;
+    }
+    #elevetion-display {
+        bottom: 58px;
+    }
+    .leaflet-right {
+        left: 10px;
+        bottom: 5px;
+        right: auto;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .leaflet-container .leaflet-control-attribution {
+        padding: 0px;
+        backdrop-filter: none;
+        background: none;
+    }
+}
 
 @media only screen and (max-width: 400px) {
     #calc-button {
         width: 100%;
+    }
+    #map { 
+        height: calc(100vh - 220px); 
     }
 }
 
