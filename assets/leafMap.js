@@ -8,6 +8,10 @@ var locatorButton = document.getElementById('locator-button');
 var locatorSvg = document.getElementById('locator-svg');
 var sateliteButton = document.getElementById('satelite-button');
 var sateliteSvg = document.getElementById('satelite-svg');
+var zoomInButton = document.getElementById('zoom-in-button');
+var zoomInSvg = document.getElementById('zoom-in-svg');
+var zoomOutButton = document.getElementById('zoom-out-button');
+var zoomOutSvg = document.getElementById('zoom-out-svg');
 var lineWeightSlider = document.getElementById('line-weight-slider');
 
 var sateliteMapOn = false;
@@ -18,24 +22,30 @@ proj4.defs([
     ['ETRS89', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs']
 ]);
 
-var calcChoordsETRS = proj4('WGS84', 'ETRS89', [18.07, 59.33]);
+var startCoords = [58.705586, 15.776982];
+var calcChoordsETRS = proj4('WGS84', 'ETRS89', startCoords);
 
 var baseApiUrl = '/';
-baseApiUrl = ''
+baseApiUrl = 'https://api.utsiktskartan.se/'
 if (window.location.hostname == 'andreto.github.io') {
     baseApiUrl = 'https://api.utsiktskartan.se/';  // 'http://utsiktskartan.eu-north-1.elasticbeanstalk.com/';
 }
 
 
+
 // Configure map element
-var map = L.map('map').setView([59.33, 18.07], 6);
+var map = L.map('map', {
+    zoomControl: false,
+    zoomSnap: .25,
+});
+map.setView(startCoords, 6);
 mapboxMap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
     id: 'mapbox/outdoors-v11',
     tileSize: 512,
     zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiYW5kcmV0byIsImEiOiJja24zZGxndzUwN3hlMnhvMDhjenlhbHFyIn0.qJGRxlYtndUtH-QNQa8LZA'
+    accessToken: 'pk.eyJ1IjoiYW5kcmV0byIsImEiOiJja24zZGxndzUwN3hlMnhvMDhjenlhbHFyIn0.qJGRxlYtndUtH-QNQa8LZA',
 })
 
 mapboxMap.addTo(map);
@@ -47,13 +57,13 @@ googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
 
 // Create map-marker and tile bounding-box
 
-var calcLocation = L.marker([59.33, 18.07], {
+var calcLocation = L.marker([58.705586, 15.776982], {
     color: '#FB5258',
 }).addTo(map);
 
 function showTileGrids() {
     var tileBound;
-    fetch(baseApiUrl + 'api/grid')
+    fetch(baseApiUrl + 'grid')
     .then(response => response.json()).then(data => {
         tileBound = L.polyline(
             data.p,
@@ -103,8 +113,8 @@ function loadMapData(latlng) {
     var calcResolution = document.getElementById('resInput').value;
     var observerHeight = document.getElementById('obshInput').value;
 
-    console.log(baseApiUrl + 'api/p?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&res=' + calcResolution + '&oh=' + observerHeight);
-    fetch(baseApiUrl + 'api/p?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&res=' + calcResolution + '&oh=' + observerHeight)
+    console.log(baseApiUrl + 'p?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&res=' + calcResolution + '&oh=' + observerHeight);
+    fetch(baseApiUrl + 'p?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&res=' + calcResolution + '&oh=' + observerHeight)
         .then(response => response.json()).then(data => {
             console.log(data.toString())
             if (pl) { pl.remove(map) }
@@ -141,7 +151,7 @@ function loadMapDataDirs(latlng) {
     pld = [];
 
     for (let i=0; i < calcResolution; i++) {
-        fetch(baseApiUrl + 'api/pd?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&di=' + String(i*2*(Math.PI/calcResolution)) + '&oh=' + observerHeight)
+        fetch(baseApiUrl + 'pd?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&di=' + String(i*2*(Math.PI/calcResolution)) + '&oh=' + observerHeight)
             .then(response => response.json()).then(data => {
                 let p = L.polyline(data['pl'], { color: '#B13A3C', weight: 2 }).addTo(map);
                 pld.push(p);
@@ -172,8 +182,8 @@ function showGridLabels() {
 
 function updateMapElev(lon, lat) {
     document.getElementById('elevetion-display').innerHTML = 'Uppdaterar<br>...';
-    console.log(baseApiUrl +'api/elev?lon=' + lon + '&lat=' + lat);
-    fetch(baseApiUrl + 'api/elev?lon=' + lon + '&lat=' + lat)
+    console.log(baseApiUrl +'elev?lon=' + lon + '&lat=' + lat);
+    fetch(baseApiUrl + 'elev?lon=' + lon + '&lat=' + lat)
     .then(response => response.json()).then(data => {
         console.log(data.elev);
         document.getElementById('elevetion-display').innerHTML = '<b>Markhöjd:</b> ' + data.elev + ' möh <br><b>Objekthöjd:</b> ' + data.obj + ' m';
