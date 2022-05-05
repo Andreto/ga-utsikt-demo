@@ -4,15 +4,22 @@ var mapElem = document.getElementById('map');
 var mapLogElem = document.getElementById('map-log');
 var mapLoaderElem = document.getElementById('map-loader');
 var calcButtonElem = document.getElementById('calc-button');
-var locatorButton = document.getElementById('locator-button');
-var locatorSvg = document.getElementById('locator-svg');
-var sateliteButton = document.getElementById('satelite-button');
-var sateliteSvg = document.getElementById('satelite-svg');
-var zoomInButton = document.getElementById('zoom-in-button');
-var zoomInSvg = document.getElementById('zoom-in-svg');
-var zoomOutButton = document.getElementById('zoom-out-button');
-var zoomOutSvg = document.getElementById('zoom-out-svg');
 var lineWeightSlider = document.getElementById('line-weight-slider');
+
+
+var actionButtons = {ids: ['locator', 'satelite', 'zoomin', 'zoomout']};
+for (var i = 0; i < actionButtons.ids.length; i++) {
+    actionButtons[actionButtons.ids[i]] = {
+        'button': document.getElementById(actionButtons.ids[i] + '-button'),
+        'svg': document.getElementById(actionButtons.ids[i] + '-svg')
+    };
+    actionButtons[actionButtons.ids[i]].svg.addEventListener('mouseover', function () {
+        blockMapClick = true;
+    });
+    actionButtons[actionButtons.ids[i]].svg.addEventListener('mouseout', function () {
+        blockMapClick = false;
+    });
+}
 
 var sateliteMapOn = false;
 var blockMapClick = false;
@@ -201,24 +208,14 @@ map.on('zoomend', onResize);
 L.control.scale().addTo(map);
 
 // Map Action-buttons
-calcButtonElem.addEventListener('click', function () {
-    loadMapDataDirs(calcLocation.getLatLng())
-});
-locatorButton.addEventListener('click', function () {
-    locatorSvg.classList.add('spinAnim');
+actionButtons.locator.button.addEventListener('click', function () {
+    actionButtons.locator.svg.classList.add('spinAnim');
     map.locate({setView: true, maxZoom: 16});
 });
-locatorSvg.addEventListener('animationend', function () {
-    locatorSvg.classList.remove('spinAnim');
+actionButtons.locator.svg.addEventListener('animationend', function () {
+    actionButtons.locator.svg.classList.remove('spinAnim');
 });
-locatorSvg.addEventListener('mouseover', function () {
-    blockMapClick = true;
-});
-locatorSvg.addEventListener('mouseout', function () {
-    blockMapClick = false;
-});
-
-sateliteButton.addEventListener('click', function () {
+actionButtons.satelite.button.addEventListener('click', function () {
     if (sateliteMapOn) {
         googleSat.remove(map);
         sateliteMapOn = false;
@@ -226,20 +223,29 @@ sateliteButton.addEventListener('click', function () {
         googleSat.addTo(map);
         sateliteMapOn = true;
     }
-    sateliteSvg.classList.add('flipCardAnim');
+    actionButtons.satelite.svg.classList.add('flipCardAnim');
 });
-sateliteSvg.addEventListener('animationend', function () {
-    sateliteSvg.classList.remove('flipCardAnim');
+actionButtons.satelite.svg.addEventListener('animationend', function () {
+    actionButtons.satelite.svg.classList.remove('flipCardAnim');
 });
-sateliteSvg.addEventListener('mouseover', function () {
-    blockMapClick = true;
+actionButtons.zoomin.button.addEventListener('click', function () {
+    map.zoomIn();
 });
-sateliteSvg.addEventListener('mouseout', function () {
-    blockMapClick = false;
+actionButtons.zoomout.button.addEventListener('click', function () {
+    map.zoomOut();
+});
+
+
+// Control panel buttons
+calcButtonElem.addEventListener('click', function () {
+    loadMapDataDirs(calcLocation.getLatLng())
 });
 lineWeightSlider.addEventListener('input', function () {
     pl.setStyle({ weight: this.value });
 });
+
+
+
 
 map.locate({setView: true, maxZoom: 9});
 

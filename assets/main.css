@@ -149,14 +149,41 @@ body {
 .map-action-button:hover {
     background: #F4F4F4;
 }
-#zoom-in-button {
+#zoomin-button {
     margin-bottom: 0;
     border-bottom: none;
     border-radius: 4px 4px 0 0;
 }
 
-#zoom-out-button {
+#zoomout-button {
     border-radius: 0 0 4px 4px;
+}
+
+
+#side-menu {
+    z-index: 1002;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid rgba(0,0,0,0.2);
+    transition: width .5s;
+}
+
+#side-menu.expanded {
+    width: 200px;
+    height: 600px;
+}
+
+#side-menu-svg {
+    float: left;
+}
+
+#side-menu.expanded #side-menu-svg {
+    float: right;
 }
 
 
