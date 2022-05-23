@@ -5,6 +5,8 @@ var mapLogElem = document.getElementById('map-log');
 var mapLoaderElem = document.getElementById('map-loader');
 var calcButtonElem = document.getElementById('calc-button');
 var lineWeightSlider = document.getElementById('line-weight-slider');
+var menuButton = document.getElementById('menu-button');
+var langSelect = document.getElementById('lang-select');
 
 
 var actionButtons = {ids: ['locator', 'satelite', 'zoomin', 'zoomout']};
@@ -24,6 +26,10 @@ for (var i = 0; i < actionButtons.ids.length; i++) {
 var sateliteMapOn = false;
 var blockMapClick = false;
 
+var setLang = 'swe';
+
+var furthestPoint = {i: 0, dist: 0, marker: null};
+
 proj4.defs([
     ['WGS84', '+proj=longlat +datum=WGS84 +no_defs'],
     ['ETRS89', '+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs']
@@ -33,10 +39,12 @@ var startCoords = [58.705586, 15.776982];
 var calcChoordsETRS = proj4('WGS84', 'ETRS89', startCoords);
 
 var baseApiUrl = '/';
-baseApiUrl = 'https://api.utsiktskartan.se/'
+baseApiUrl = 'https://api.utsiktskartan.se/';
+//baseApiUrl = 'http://localhost:3000/';
 if (window.location.hostname == 'andreto.github.io') {
     baseApiUrl = 'https://api.utsiktskartan.se/';  // 'http://utsiktskartan.eu-north-1.elasticbeanstalk.com/';
 }
+
 
 
 
@@ -146,6 +154,7 @@ function loadMapDataDirs(latlng) {
     mapElem.classList.add('loading');
     mapLoaderElem.classList.add('show');
     mapLogElem.classList.remove('error');
+    furthestPoint = {i: 0, dist: 0};
 
     var calcResolution = document.getElementById('resInput').value;
     var observerHeight = document.getElementById('obshInput').value;
@@ -161,6 +170,21 @@ function loadMapDataDirs(latlng) {
         fetch(baseApiUrl + 'pd?lon=' + calcChoordsETRS[0] + '&lat=' + calcChoordsETRS[1] + '&di=' + String(i*2*(Math.PI/calcResolution)) + '&oh=' + observerHeight)
             .then(response => response.json()).then(data => {
                 let p = L.polyline(data['pl'], { color: '#B13A3C', weight: 2 }).addTo(map);
+                let dist = (Math.sqrt(p._bounds._northEast.lat - p._bounds._southWest.lat)**2 + (p._bounds._northEast.lng - p._bounds._southWest.lng)**2);
+                
+                
+                if (dist > furthestPoint.dist) {
+                    console.log(furthestPoint.i, pld.length);
+                    if (pld.length > 0) {
+                        pld[furthestPoint.i].setStyle({color: "#B13A3C"});
+                    }
+                    if (furthestPoint.marker == null) {
+                        furthestPoint.marker = L.marker(data['pl'][data['pl'].length-1][0], {opacity: 0}).addTo(map);
+                    }
+                    furthestPoint.dist = dist;
+                    furthestPoint.i = pld.length;
+                    p.setStyle({color: "#F52201"});
+                }
                 pld.push(p);
                 if (parseFloat(data.di) > (2*Math.PI - ((4*Math.PI)/calcResolution))) {
                     mapElem.classList.remove('loading');
@@ -236,18 +260,27 @@ actionButtons.zoomout.button.addEventListener('click', function () {
 });
 
 
+menuButton.addEventListener('click', function() {
+    document.getElementById('side-menu').classList.toggle('expanded');
+});
+
+
 // Control panel buttons
 calcButtonElem.addEventListener('click', function () {
     loadMapDataDirs(calcLocation.getLatLng())
 });
 lineWeightSlider.addEventListener('input', function () {
-    pl.setStyle({ weight: this.value });
+    for (let i=0; i < pld.length; i++) {
+        pld[i].setStyle({ weight: this.value });
+    }
 });
 
 
 
+// Inital setup
+onMapClick({latlng: {lat: startCoords[0], lng: startCoords[1]}});
 
-map.locate({setView: true, maxZoom: 9});
+//   map.locate({setView: true, maxZoom: 9}); // :TODO:
 
 // for (const property in hillExport) {
 //     item = hillExport[property]

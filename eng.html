@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utsiktskartan</title>
+    <title>How Far Can You See?</title>
     <!-- Leaflet Import -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -22,11 +22,11 @@
         </svg>
     </div>
     <div id="side-menu">
-        <p>Välkommen till utsiktskartan! Klicka på kartan för att välja en utsiktspunkt. Efter att du klickar "Beräkna", kommer den synliga arean att markeras med rött på kartan.</p>
-        <a class="side-menu-link" href="./docs/längsta">Sveriges längsta utsikter</a>
-        <a class="side-menu-link" href="./docs/demo">Demoberäkningar</a>
+        <p>How Far Can You See? Simulating Sightlines in Swedish Landscapes</p>
+        <a class="side-menu-link" href="./docs/längsta">Furthest Sightlines In Sweden</a>
+        <a class="side-menu-link" href="./docs/demo">Democalculations</a>
         <a class="side-menu-link" href="./">Documentation</a>
-        <a id="lang-select" href="./eng.html">Eng</a>
+        <a id="lang-select" href="./">Swe</a>
     </div>
     <div id="map">
         <div class="action-button-container">
@@ -77,20 +77,20 @@
     <div class="loader"></div></div>
     <div class="full-width-align">
         <div class="control-panel">
-            <button id="calc-button">Beräkna</button>
+            <button id="calc-button">Calculate</button>
             <div class="control-label">Lat:</div>
             <div class="control-text" id="lat-disp">59.33</div>
             <div class="control-label">Lon:</div>
             <div class="control-text" id="lon-disp">18.07</div>
-            <br><span><b>Upplösning: </b></span><input type="number" class="control-input-small" id="resInput" name="Resolution" min="4" max="720" value="360">
-            <br><span><b>Observationshöjd: </b></span><input type="number" class="control-input-small" id="obshInput" name="Obserer Height" value="2">
-            <br><span><b>Linjetjocklek: </b></span><input id="line-weight-slider" type="range" min="1" max="20" value="2">
+            <br><span><b>Resolution: </b></span><input type="number" class="control-input-small" id="resInput" name="Resolution" min="4" max="720" value="360">
+            <br><span><b>Observation Height: </b></span><input type="number" class="control-input-small" id="obshInput" name="Obserer Height" value="2">
+            <br><span><b>Linethickness: </b></span><input id="line-weight-slider" type="range" min="1" max="20" value="2">
             <br>
             <div id="map-log" class=""></div>
         </div>
     </div>
     <div id="credit-info">
-        Utsiktskartan använder geodata från <a href="https://www.skogsstyrelsen.se/sjalvservice/karttjanster/skogliga-grunddata/">Skogstyrelsen</a> och <a href="https://land.copernicus.eu/imagery-in-situ/eu-dem/eu-dem-v1.1?tab=metadata">Copernicus</a>
+        This project uses geodata from <a href="https://www.skogsstyrelsen.se/sjalvservice/karttjanster/skogliga-grunddata/">The Swedish Forest Adminestration</a> and <a href="https://land.copernicus.eu/imagery-in-situ/eu-dem/eu-dem-v1.1?tab=metadata">Copernicus</a>
     </div>
     <script src="assets/leafMap.js"></script>
 </body>
