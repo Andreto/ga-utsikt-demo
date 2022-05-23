@@ -160,7 +160,7 @@ body {
 }
 
 
-#menu-button {
+#side-menu {
     z-index: 1002;
     position: absolute;
     top: 10px;
@@ -173,50 +173,18 @@ body {
     transition: width .5s;
 }
 
-#menu-button-svg {
+#side-menu.expanded {
+    width: 200px;
+    height: 600px;
+}
+
+#side-menu-svg {
     float: left;
 }
 
-#side-menu {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    z-index: 1001;
-    position: absolute;
-    top: 60px;
-    left: -280px;
-    background: #fff;
-    border: 1px solid #000;
-    border-radius: 4px;
-    padding: 10px;
-    max-height: calc(100vh - 200px);
-    max-width: 240px;
-    transition: left .3s;
-}
-
-#side-menu.expanded {
-    left: 10px;
-}
-
-#side-menu p {
-    margin-top: 0;
-}
-.side-menu-link {
-    display: block;
-    text-decoration: none;
-    color: #1B1D23;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-.side-menu-link:hover {
-    color: #000;
-}
-#lang-select {
+#side-menu.expanded #side-menu-svg {
     float: right;
-    cursor: pointer;
-
 }
-
-
 
 
 .glass-ui {

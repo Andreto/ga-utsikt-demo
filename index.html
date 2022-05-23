@@ -14,19 +14,13 @@
 </head>
 <body>
     <div class="loader" id="map-loader"></div>
-    <div id="menu-button">
-        <svg id="menu-button-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div id="side-menu">
+        <svg id="side-menu-svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line class="l1" x1="4" y1="12" x2="20" y2="12"></line>
             <line class="l2" x1="4" y1="6" x2="20" y2="6"></line>
             <line class="l3" x1="4" y1="18" x2="20" y2="18"></line>
         </svg>
-    </div>
-    <div id="side-menu">
-        <p>Välkommen till utsiktskartan! Klicka på kartan för att välja en utsiktspunkt. Efter att du klickar "Beräkna", kommer den synliga arean att markeras med rött på kartan.</p>
-        <a class="side-menu-link" href="./docs/längsta">Sveriges längsta utsikter</a>
-        <a class="side-menu-link" href="./docs/demo">Demoberäkningar</a>
-        <a class="side-menu-link" href="./">Documentation</a>
-        <a id="lang-select" href="./eng.html">Eng</a>
+
     </div>
     <div id="map">
         <div class="action-button-container">
@@ -70,7 +64,7 @@
         </div>
 
     </div>
-    <div style="display: none;" class="info-header" onclick="this.style.display = 'none';">Välkommen till utsiktskartan! Klicka på kartan för att välja en utsiktspunkt. Efter att du klickar "Beräkna", kommer den synliga arean att markeras med rött på kartan.</div>
+    <div class="info-header" onclick="this.style.display = 'none';">Välkommen till utsiktskartan! Klicka på kartan för att välja en utsiktspunkt. Efter att du klickar "Beräkna", kommer den synliga arean att markeras med rött på kartan.</div>
     <div class="map-control-overlay">
 
     </div>
